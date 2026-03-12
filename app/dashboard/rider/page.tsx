@@ -1,7 +1,8 @@
 'use client'
-import { getUser } from "@/lib/auth";
+import { getUser, logout } from "@/lib/auth";
 import { getRiderShipments, updateShipmentStatus } from "@/lib/api";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 type Shipment = {
@@ -23,6 +24,7 @@ const STATUS_OPTIONS = [
 ];
 
 export default function RiderDashboard() {
+  const router = useRouter();
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [shipments, setShipments] = useState<Shipment[]>([]);
@@ -72,6 +74,11 @@ export default function RiderDashboard() {
     );
   }
 
+  const handleLogout = () => {
+    logout();
+    router.push("/login");
+  };
+
   const handleStatusChange = async (id: string, status: string) => {
     const token = localStorage.getItem("token");
     if (!token) return;
@@ -92,7 +99,10 @@ export default function RiderDashboard() {
 
   return(
     <div style={{ padding: 40 }}>
-      <h1>Rider Dashboard</h1>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        <h1>Rider Dashboard</h1>
+        <button onClick={handleLogout}>Logout</button>
+      </div>
       <p>These are the orders assigned to you.</p>
 
       {error && <p style={{ color: "red" }}>{error}</p>}

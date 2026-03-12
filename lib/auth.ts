@@ -5,3 +5,9 @@ export function getUser() {
 
   return user ? JSON.parse(user) : null;
 }
+
+export function logout() {
+  if (typeof window === "undefined") return;
+  localStorage.removeItem("token");
+  localStorage.removeItem("user");
+}

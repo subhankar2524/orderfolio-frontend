@@ -1,7 +1,8 @@
 'use client'
-import { getUser } from "@/lib/auth";
+import { getUser, logout } from "@/lib/auth";
 import { getUserShipments } from "@/lib/api";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 type Shipment = {
@@ -15,6 +16,7 @@ type Shipment = {
 };
 
 export default function UserDashboard() {
+  const router = useRouter();
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [shipments, setShipments] = useState<Shipment[]>([]);
@@ -63,9 +65,17 @@ export default function UserDashboard() {
     );
   }
 
+  const handleLogout = () => {
+    logout();
+    router.push("/login");
+  };
+
   return(
     <div style={{ padding: 40 }}>
-      <h1>User Dashboard</h1>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        <h1>User Dashboard</h1>
+        <button onClick={handleLogout}>Logout</button>
+      </div>
       <p>Here are your shipments.</p>
 
       {error && <p style={{ color: "red" }}>{error}</p>}

@@ -1,7 +1,8 @@
 'use client'
-import { getUser } from "@/lib/auth";
+import { getUser, logout } from "@/lib/auth";
 import { createShipment, getAllShipments } from "@/lib/api";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 type Shipment = {
@@ -15,6 +16,7 @@ type Shipment = {
 };
 
 export default function AdminDashboard() {
+  const router = useRouter();
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [shipments, setShipments] = useState<Shipment[]>([]);
@@ -98,9 +100,17 @@ export default function AdminDashboard() {
     );
   }
 
+  const handleLogout = () => {
+    logout();
+    router.push("/login/admin");
+  };
+
   return (
     <div style={{ padding: 40 }}>
-      <h1>Admin Dashboard</h1>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        <h1>Admin Dashboard</h1>
+        <button onClick={handleLogout}>Logout</button>
+      </div>
       <p>Create shipments and review all shipments.</p>
 
       {error && <p style={{ color: "red" }}>{error}</p>}
