@@ -33,31 +33,53 @@ export default function LoginPage() {
   };
 
   return (
-    <div style={{ padding: 40 }}>
-      <h1>Login</h1>
+  <div className="min-h-screen flex items-center justify-center bg-black text-white px-6">
+    <div className="w-full max-w-md bg-zinc-900 border border-zinc-800 rounded-xl p-8">
 
-      <input
-        placeholder="Email"
-        onChange={(e) => setEmail(e.target.value)}
-      />
-
-      <br /><br />
-
-      <input
-        type="password"
-        placeholder="Password"
-        onChange={(e) => setPassword(e.target.value)}
-      />
-
-      <br /><br />
-
-      <button onClick={handleLogin}>
-        Login
-      </button>
-
-      <div style={{ marginTop: 16 }}>
-        <Link href="/login/admin">Admin Login</Link>
+      <div className="mb-6 text-center">
+        <h1 className="text-2xl font-semibold">Login</h1>
+        <p className="text-zinc-400 text-sm">
+          Access your OrderFolio account
+        </p>
       </div>
+
+      <div className="space-y-4">
+
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="w-full bg-zinc-800 border border-zinc-700 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-zinc-500"
+        />
+
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="w-full bg-zinc-800 border border-zinc-700 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-zinc-500"
+        />
+
+        <button
+          onClick={handleLogin}
+          className="w-full bg-blue-600 hover:bg-blue-700 transition px-4 py-2 rounded-md text-sm font-medium"
+        >
+          Login
+        </button>
+
+      </div>
+
+      <div className="mt-6 text-center">
+        <Link
+          href="/login/admin"
+          className="text-sm text-zinc-400 hover:text-white"
+        >
+          Admin Login
+        </Link>
+      </div>
+
     </div>
-  );
+  </div>
+);
 }

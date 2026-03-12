@@ -106,93 +106,140 @@ export default function AdminDashboard() {
   };
 
   return (
-    <div style={{ padding: 40 }}>
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <h1>Admin Dashboard</h1>
-        <button onClick={handleLogout}>Logout</button>
+  <div className="min-h-screen p-10 flex justify-center bg-black text-white">
+    <div className="w-full max-w-6xl bg-zinc-900 border border-zinc-800 rounded-xl p-8">
+
+      {/* Header */}
+      <div className="flex justify-between items-center mb-8">
+        <div>
+          <h1 className="text-3xl font-semibold">Admin Dashboard</h1>
+          <p className="text-zinc-400 text-sm">
+            Create shipments and review all shipments
+          </p>
+        </div>
+
+        <button
+          onClick={handleLogout}
+          className="bg-red-600 hover:bg-red-700 px-4 py-2 rounded-md text-sm font-medium transition"
+        >
+          Logout
+        </button>
       </div>
-      <p>Create shipments and review all shipments.</p>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {error && <p className="text-red-500 mb-4">{error}</p>}
 
-      <div style={{ marginTop: 20, padding: 16, border: "1px solid #eee" }}>
-        <h2>Create Shipment</h2>
+      {/* Create Shipment */}
+      <div className="border border-zinc-800 rounded-lg p-6 mb-10">
+        <h2 className="text-lg font-semibold mb-4">Create Shipment</h2>
 
-        <div style={{ marginTop: 10 }}>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+
           <input
+            className="bg-zinc-800 border border-zinc-700 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-zinc-500"
             placeholder="AWB Number"
             value={awbNumber}
             onChange={(e) => setAwbNumber(e.target.value)}
           />
-        </div>
 
-        <div style={{ marginTop: 10 }}>
           <input
+            className="bg-zinc-800 border border-zinc-700 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-zinc-500"
             placeholder="Delivery Address"
             value={deliveryAddress}
             onChange={(e) => setDeliveryAddress(e.target.value)}
           />
-        </div>
 
-        <div style={{ marginTop: 10 }}>
           <input
+            className="bg-zinc-800 border border-zinc-700 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-zinc-500"
             placeholder="Receiver Email"
             value={receiverEmail}
             onChange={(e) => setReceiverEmail(e.target.value)}
           />
-        </div>
 
-        <div style={{ marginTop: 10 }}>
           <input
+            className="bg-zinc-800 border border-zinc-700 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-zinc-500"
             placeholder="Rider Email"
             value={riderEmail}
             onChange={(e) => setRiderEmail(e.target.value)}
           />
+
         </div>
 
-        <div style={{ marginTop: 12 }}>
-          <button onClick={handleCreateShipment} disabled={creating}>
-            {creating ? "Creating..." : "Create Shipment"}
-          </button>
-        </div>
+        <button
+          onClick={handleCreateShipment}
+          disabled={creating}
+          className="mt-4 bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-md text-sm font-medium transition"
+        >
+          {creating ? "Creating..." : "Create Shipment"}
+        </button>
       </div>
 
-      <div style={{ marginTop: 30 }}>
-        <h2>All Shipments</h2>
+      {/* Shipments Table */}
+      <div>
+        <h2 className="text-lg font-semibold mb-4">All Shipments</h2>
 
         {shipments.length === 0 ? (
-          <p>No shipments found.</p>
+          <div className="text-center text-zinc-400 py-16">
+            No shipments found
+          </div>
         ) : (
-          <div style={{ overflowX: "auto", marginTop: 12 }}>
-            <table style={{ width: "100%", borderCollapse: "collapse" }}>
-              <thead>
+          <div className="overflow-x-auto border border-zinc-800 rounded-lg">
+
+            <table className="w-full text-sm">
+
+              <thead className="bg-zinc-800 text-zinc-300">
                 <tr>
-                  <th style={{ textAlign: "left", borderBottom: "1px solid #ddd", padding: 8 }}>AWB</th>
-                  <th style={{ textAlign: "left", borderBottom: "1px solid #ddd", padding: 8 }}>Delivery Address</th>
-                  <th style={{ textAlign: "left", borderBottom: "1px solid #ddd", padding: 8 }}>Receiver</th>
-                  <th style={{ textAlign: "left", borderBottom: "1px solid #ddd", padding: 8 }}>Rider</th>
-                  <th style={{ textAlign: "left", borderBottom: "1px solid #ddd", padding: 8 }}>Status</th>
-                  <th style={{ textAlign: "left", borderBottom: "1px solid #ddd", padding: 8 }}>Created</th>
+                  <th className="text-left px-4 py-3">AWB</th>
+                  <th className="text-left px-4 py-3">Delivery Address</th>
+                  <th className="text-left px-4 py-3">Receiver</th>
+                  <th className="text-left px-4 py-3">Rider</th>
+                  <th className="text-left px-4 py-3">Status</th>
+                  <th className="text-left px-4 py-3">Created</th>
                 </tr>
               </thead>
+
               <tbody>
                 {shipments.map((s) => (
-                  <tr key={s._id}>
-                    <td style={{ padding: 8, borderBottom: "1px solid #eee" }}>{s.awbNumber}</td>
-                    <td style={{ padding: 8, borderBottom: "1px solid #eee" }}>{s.deliveryAddress}</td>
-                    <td style={{ padding: 8, borderBottom: "1px solid #eee" }}>{s.receiverEmail}</td>
-                    <td style={{ padding: 8, borderBottom: "1px solid #eee" }}>{s.riderEmail}</td>
-                    <td style={{ padding: 8, borderBottom: "1px solid #eee" }}>{s.status}</td>
-                    <td style={{ padding: 8, borderBottom: "1px solid #eee" }}>
+                  <tr
+                    key={s._id}
+                    className="border-t border-zinc-800 hover:bg-zinc-800/40 transition"
+                  >
+                    <td className="px-4 py-3 font-medium">
+                      {s.awbNumber}
+                    </td>
+
+                    <td className="px-4 py-3 text-zinc-300">
+                      {s.deliveryAddress}
+                    </td>
+
+                    <td className="px-4 py-3 text-zinc-300">
+                      {s.receiverEmail}
+                    </td>
+
+                    <td className="px-4 py-3 text-zinc-300">
+                      {s.riderEmail}
+                    </td>
+
+                    <td className="px-4 py-3">
+                      <span className="px-3 py-1 rounded-md bg-zinc-800 text-xs capitalize">
+                        {s.status.replace("_", " ")}
+                      </span>
+                    </td>
+
+                    <td className="px-4 py-3 text-zinc-400">
                       {new Date(s.createdAt).toLocaleString()}
                     </td>
+
                   </tr>
                 ))}
               </tbody>
+
             </table>
+
           </div>
         )}
       </div>
+
     </div>
-  );
+  </div>
+);
 }

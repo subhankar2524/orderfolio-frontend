@@ -18,9 +18,14 @@ export default function Home() {
   if (!user) {
     return (
       <div style={{ padding: 40 }}>
-        <h1>Welcome to OrderFolio</h1>
+        <h1 className="text-3xl font-bold">Welcome to OrderFolio</h1>
         <p>You are not logged in.</p>
-        <Link href="/login">Login</Link>
+        <Link 
+  href="/login" 
+  className="inline-flex items-center justify-center mt-5 px-6 py-3 border border-gray-200 text-base font-medium rounded-md text-black bg-white hover:bg-gray-100 transition-colors duration-200 shadow-sm"
+>
+  Login
+</Link>
       </div>
     );
   }
@@ -33,13 +38,28 @@ export default function Home() {
 
       <div style={{ marginTop: 20 }}>
         {user.role === "user" && (
-          <Link href="/dashboard/user">Go to User Dashboard</Link>
+          <Link 
+      href="/dashboard/user" 
+      className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors duration-200 shadow-sm"
+    >
+      Go to User Dashboard
+    </Link>
         )}
         {user.role === "rider" && (
-          <Link href="/dashboard/rider">Go to Rider Dashboard</Link>
+          <Link 
+      href="/dashboard/rider" 
+      className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700 transition-colors duration-200 shadow-sm"
+    >
+      Go to Rider Dashboard
+    </Link>
         )}
         {user.role === "admin" && (
-          <Link href="/dashboard/admin">Go to Admin Dashboard</Link>
+          <Link 
+      href="/dashboard/admin" 
+      className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-white hover:bg-gray-100 transition-colors duration-200 shadow-sm"
+    >
+      Go to Admin Dashboard
+    </Link>
         )}
       </div>
     </div>

@@ -70,46 +70,86 @@ export default function UserDashboard() {
     router.push("/login");
   };
 
-  return(
-    <div style={{ padding: 40 }}>
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <h1>User Dashboard</h1>
-        <button onClick={handleLogout}>Logout</button>
-      </div>
-      <p>Here are your shipments.</p>
+  return (
+  <div className="min-h-screen p-10 flex justify-center bg-black text-white">
+    <div className="w-full max-w-6xl bg-zinc-900 border border-zinc-800 rounded-xl p-8">
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {/* Header */}
+      <div className="flex justify-between items-center mb-8">
+        <div>
+          <h1 className="text-3xl font-semibold">User Dashboard</h1>
+          <p className="text-zinc-400 text-sm">
+            Here are your shipments
+          </p>
+        </div>
+
+        <button
+          onClick={handleLogout}
+          className="bg-red-600 hover:bg-red-700 px-4 py-2 rounded-md text-sm font-medium transition"
+        >
+          Logout
+        </button>
+      </div>
+
+      {error && <p className="text-red-500 mb-4">{error}</p>}
 
       {shipments.length === 0 ? (
-        <p>No shipments found.</p>
+        <div className="text-center text-zinc-400 py-20">
+          No shipments found
+        </div>
       ) : (
-        <div style={{ overflowX: "auto", marginTop: 20 }}>
-          <table style={{ width: "100%", borderCollapse: "collapse" }}>
-            <thead>
+        <div className="overflow-x-auto border border-zinc-800 rounded-lg">
+
+          <table className="w-full text-sm">
+
+            <thead className="bg-zinc-800 text-zinc-300">
               <tr>
-                <th style={{ textAlign: "left", borderBottom: "1px solid #ddd", padding: 8 }}>AWB</th>
-                <th style={{ textAlign: "left", borderBottom: "1px solid #ddd", padding: 8 }}>Delivery Address</th>
-                <th style={{ textAlign: "left", borderBottom: "1px solid #ddd", padding: 8 }}>Rider</th>
-                <th style={{ textAlign: "left", borderBottom: "1px solid #ddd", padding: 8 }}>Status</th>
-                <th style={{ textAlign: "left", borderBottom: "1px solid #ddd", padding: 8 }}>Created</th>
+                <th className="text-left px-4 py-3">AWB</th>
+                <th className="text-left px-4 py-3">Delivery Address</th>
+                <th className="text-left px-4 py-3">Rider</th>
+                <th className="text-left px-4 py-3">Status</th>
+                <th className="text-left px-4 py-3">Created</th>
               </tr>
             </thead>
+
             <tbody>
               {shipments.map((s) => (
-                <tr key={s._id}>
-                  <td style={{ padding: 8, borderBottom: "1px solid #eee" }}>{s.awbNumber}</td>
-                  <td style={{ padding: 8, borderBottom: "1px solid #eee" }}>{s.deliveryAddress}</td>
-                  <td style={{ padding: 8, borderBottom: "1px solid #eee" }}>{s.riderEmail}</td>
-                  <td style={{ padding: 8, borderBottom: "1px solid #eee" }}>{s.status}</td>
-                  <td style={{ padding: 8, borderBottom: "1px solid #eee" }}>
+                <tr
+                  key={s._id}
+                  className="border-t border-zinc-800 hover:bg-zinc-800/40 transition"
+                >
+                  <td className="px-4 py-3 font-medium">
+                    {s.awbNumber}
+                  </td>
+
+                  <td className="px-4 py-3 text-zinc-300">
+                    {s.deliveryAddress}
+                  </td>
+
+                  <td className="px-4 py-3 text-zinc-300">
+                    {s.riderEmail}
+                  </td>
+
+                  <td className="px-4 py-3">
+                    <span className="px-3 py-1 rounded-md bg-zinc-800 text-xs capitalize">
+                      {s.status.replace("_", " ")}
+                    </span>
+                  </td>
+
+                  <td className="px-4 py-3 text-zinc-400">
                     {new Date(s.createdAt).toLocaleString()}
                   </td>
+
                 </tr>
               ))}
             </tbody>
+
           </table>
+
         </div>
       )}
+
     </div>
-  );
+  </div>
+);
 }
